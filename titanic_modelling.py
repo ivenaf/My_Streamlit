@@ -11,7 +11,8 @@ st.title('Titanic: binary classification project')
 st.sidebar.title('Table of contents')
 pages=['Exploration', 'Data Visualization', 'Modelling']
 page=st.sidebar.radio('Go to', pages)
-#######################################################################
+
+###################################### Exploration ########################################
 # write in the first page
 if page==pages[0]:
     st.write('### Presentation of Data')
@@ -22,7 +23,8 @@ if page==pages[0]:
 #missing values checbox
     if st.checkbox('Show NA'):
         st.dataframe(df.isna().sum())
-#######################################################################
+
+##################################### Data Viz ###########################################
 # writing in the second page / plotting
 if page==pages[1]:
     st.write('### Data Visualization')
@@ -67,7 +69,8 @@ if page==pages[1]:
     fig = plt.figure()
     sns.heatmap(df_num.corr(), annot=True, cmap='viridis', center=True)
     st.pyplot(fig)
-#######################################################################
+
+################################# MODELLING #############################################
 if page== pages[2]:
     st.write('### Modelling')
 #drop irrelevant vars
@@ -111,21 +114,21 @@ if page== pages[2]:
         elif classifier == 'Logistic Regression':
             clf = LogisticRegression()
         clf.fit(X_train, y_train) #fitting the model
+        
 
         # SAVE trained classifier clf after fit as 'model' with joblib
         import joblib
-        joblib.dump(clf,'model')
+        joblib.dump(clf, "model")
         
         # SAVE trained classifier clf after fit as 'model' with pickle
-        import pickle
-        pickle.dump(clf, open('model', 'wb'))
+        #import pickle
+        #pickle.dump(clf, open('model', 'wb'))
         
         y_pred = clf.predict(X_test)
         
         return clf
-    
+        
 
-    # accuracy or confusion matrix
     # accuracy or confusion matrix
     def scores (clf, choice):
         if choice == 'Accuracy':
